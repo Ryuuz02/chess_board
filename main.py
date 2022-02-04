@@ -1,60 +1,96 @@
-chess_board = []
+from colorama import Fore
 
 
-def add_chess_rows():
-    for i in range(0, 8):
-        chess_board.append([])
+class ChessBoard:
+    def __init__(self, rows=8, cols=8):
+        self.board = []
+        self.rows = rows
+        self.cols = cols
+        for row in range(0, rows):
+            self.board.append([])
+        for col in range(0, cols):
+            for row in range(0, rows):
+                self.board[col].append("_")
+        for row in range(1, rows + 1):
+            if row == 1 or row == 8:
+                for col in range(1, 9):
+                    if col == 1 or col == 8:
+                        unit = "R"
+                    elif col == 2 or col == 7:
+                        unit = "N"
+                    elif col == 3 or col == 6:
+                        unit = "B"
+                    elif row == 1:
+                        if col == 4:
+                            unit = "Q"
+                        elif col == 5:
+                            unit = "K"
+                    else:
+                        if col == 5:
+                            unit = "Q"
+                        elif col == 4:
+                            unit = "K"
+                    if row == 1:
+                        self.replace_spot(unit, col, row)
+                    elif row == 8:
+                        self.replace_spot(unit, col, row)
+            elif row == 2:
+                for col in range(1, 9):
+                    self.replace_spot("P", col, row)
+            elif row == 7:
+                for col in range(1, 9):
+                    self.replace_spot("P", col, row)
+
+    def print_board(self):
+        for row in range(0, self.rows):
+            current_line = self.board[row]
+            print("|" + "|".join(current_line) + "|")
+
+    def replace_spot(self, new_piece, x, y):
+        index_accounted_y = y - self.cols
+        index_accounted_x = x - self.rows
+        self.board[-index_accounted_y][index_accounted_x] = new_piece
 
 
-def fill_chess_rows():
-    for i in range(0, 8):
-        for j in range(0, 8):
-            chess_board[i].append("_")
+class ChessPiece:
+    def __init__(self, symbol, name):
+        self.symbol = symbol
+        self.name = name
 
 
-def print_chessboard():
-    for i in range(0, 8):
-        current_line = chess_board[i]
-        print("|" + "|".join(current_line) + "|")
+class Pawn(ChessPiece):
+    def __init__(self, name):
+        super().__init__("P", name)
 
 
-def replace_spot(new_piece, x, y):
-    index_accounted_y = 8 - y
-    index_accounted_x = x - 1
-    chess_board[index_accounted_y][index_accounted_x] = new_piece
+class Rook(ChessPiece):
+    def __init__(self):
+        pass
 
 
-def build_chessboard():
-    for row in range(1, 9):
-        if row == 1 or row == 8:
-            for col in range(1, 9):
-                if col == 1 or col == 8:
-                    unit = "R"
-                elif col == 2 or col == 7:
-                    unit = "N"
-                elif col == 3 or col == 6:
-                    unit = "B"
-                elif row == 1:
-                    if col == 4:
-                        unit = "Q"
-                    elif col == 5:
-                        unit = "K"
-                else:
-                    if col == 5:
-                        unit = "Q"
-                    elif col == 4:
-                        unit = "K"
-                replace_spot(unit, col, row)
-        elif row == 2 or row == 7:
-            for col in range(1, 9):
-                replace_spot("P", col, row)
+class Knight(ChessPiece):
+    def __init__(self):
+        pass
 
 
-def create_chessboard():
-    add_chess_rows()
-    fill_chess_rows()
-    build_chessboard()
+class Queen(ChessPiece):
+    def __init__(self):
+        pass
 
 
-create_chessboard()
-print_chessboard()
+class Bishop(ChessPiece):
+    def __init__(self):
+        pass
+
+
+class King(ChessPiece):
+    def __init__(self):
+        pass
+
+
+def move_piece(piece_symbol):
+    pass
+
+
+chess_board = ChessBoard()
+chess_board.print_board()
