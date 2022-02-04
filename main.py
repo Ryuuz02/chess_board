@@ -13,6 +13,7 @@ class ChessBoard:
                 self.board[col].append("_")
         for row in range(1, rows + 1):
             if row == 1 or row == 8:
+                unit = ""
                 for col in range(1, 9):
                     if col == 1 or col == 8:
                         unit = "R"
