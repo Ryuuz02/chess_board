@@ -47,13 +47,13 @@ class ChessBoard:
         print("   " + " ".join(a_to_h))
         for row in range(0, self.rows):
             current_line = self.board[row]
+            print_line = [piece.print() for piece in current_line]
             if row in [0, 1]:
-                print_line = [piece.print() for piece in current_line]
                 print(Fore.RESET + str(8 - row) + Fore.GREEN + " |" + "|".join(print_line) + "|")
             elif row in [6, 7]:
-                print(Fore.RESET + str(8 - row) + Fore.BLUE + " |" + "|".join(current_line) + "|")
+                print(Fore.RESET + str(8 - row) + Fore.BLUE + " |" + "|".join(print_line) + "|")
             else:
-                print(Fore.RESET + str(8 - row) + " |" + "|".join(current_line) + "|")
+                print(Fore.RESET + str(8 - row) + " |" + "|".join(print_line) + "|")
 
     def replace_spot(self, new_piece, x, y):
         index_accounted_y = y - self.cols
